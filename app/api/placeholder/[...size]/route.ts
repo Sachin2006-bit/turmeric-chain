@@ -14,9 +14,11 @@ const turmericColors = [
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { size: string[] } }
+  { params }: { params: Promise<{ size: string[] }> }
 ) {
   try {
+    // Await params as it's a Promise in Next.js 16
+    const resolvedParams = await params;
     const searchParams = request.nextUrl.searchParams;
     const width = parseInt(searchParams.get('w') || '400');
     const height = parseInt(searchParams.get('h') || '300');
