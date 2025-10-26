@@ -258,7 +258,7 @@ export function getEnhancedResponse(
   }
 
   // Get varied response based on conversation count
-  const responseArray = responses[language][responseType];
+  const responseArray = (responses[language] as any)[responseType];
   const responseIndex = responseCount % responseArray.length;
   
   return responseArray[responseIndex];

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ShoppingCart, Package, Search, Filter, Eye, ArrowLeft, Heart, Star, MapPin, Calendar, User, Tag } from 'lucide-react';
 import { TopNav } from '../../../components/TopNav';
@@ -19,7 +19,7 @@ interface CartItem {
   batch: Batch;
 }
 
-export default function EnhancedBuyerListing() {
+function BuyerListingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { userRole, language, lowLiteracyMode, addNotification } = useApp();
@@ -743,3 +743,14 @@ export default function EnhancedBuyerListing() {
     </div>
   );
 }
+
+export default function EnhancedBuyerListing() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BuyerListingContent />
+    </Suspense>
+  );
+}
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;

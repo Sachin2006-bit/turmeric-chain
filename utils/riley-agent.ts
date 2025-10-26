@@ -96,7 +96,7 @@ export function getRileyResponse(
 
   // Get appropriate response
   const responseSet = responses[language];
-  const responseArray = responseSet[responseType] || responseSet.default;
+  const responseArray = (responseSet as any)[responseType] || responseSet.default;
   const randomIndex = Math.floor(Math.random() * responseArray.length);
   const reply_text = responseArray[randomIndex];
 

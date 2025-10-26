@@ -157,12 +157,13 @@ export async function triggerCallAgent(
   batchId: string,
   language: 'te' | 'en' = 'en'
 ): Promise<boolean> {
-  return await triggerN8nWebhook('CALL_AGENT', {
+  const result = await triggerN8nWebhook('CALL_AGENT', {
     farmer: { phone: farmerPhone },
     buyer: { phone: buyerPhone },
     batchId,
     language
   });
+  return result.success;
 }
 
 // AI Chat with ElevenLabs Agent integration
@@ -221,13 +222,14 @@ export async function notifyPaymentSuccess(
   amount: number,
   buyerPhone: string
 ): Promise<boolean> {
-  return await triggerN8nWebhook('PAYMENT_SUCCESS', {
+  const result = await triggerN8nWebhook('PAYMENT_SUCCESS', {
     batchId,
     farmerPhone,
     amount,
     buyerPhone,
     timestamp: new Date().toISOString()
   });
+  return result.success;
 }
 
 // New offer notification
@@ -237,13 +239,14 @@ export async function notifyNewOffer(
   buyerPhone: string,
   offerPrice: number
 ): Promise<boolean> {
-  return await triggerN8nWebhook('NEW_OFFER', {
+  const result = await triggerN8nWebhook('NEW_OFFER', {
     batchId,
     farmerPhone,
     buyerPhone,
     offerPrice,
     timestamp: new Date().toISOString()
   });
+  return result.success;
 }
 
 // Razorpay integration

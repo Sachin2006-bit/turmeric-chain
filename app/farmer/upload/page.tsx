@@ -129,16 +129,19 @@ export default function EnhancedUploadWizard() {
         weight: formData.weight,
         moisture: formData.moisture,
         harvestDate: formData.harvestDate,
-        grade: formData.grade
+        grade: formData.grade,
+        timestamp: new Date().toISOString()
       });
       
       // Generate QR code
-      const qr = await generateQRCode({
-        batchId: `batch_${Date.now()}`,
+      const batchId = `batch_${Date.now()}`;
+      const qrData = JSON.stringify({
+        batchId,
         farmerId: 'farmer_01',
         hash: hash,
         timestamp: new Date().toISOString()
       });
+      const qr = await generateQRCode(qrData);
       
       setBatchHash(hash);
       setQrCode(qr);

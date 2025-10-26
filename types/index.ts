@@ -76,7 +76,7 @@ export interface CartItem {
 
 export interface Notification {
   id: string;
-  type: 'call' | 'sms' | 'email' | 'bid' | 'payment';
+  type: 'call' | 'sms' | 'email' | 'bid' | 'payment' | 'success';
   title: string;
   message: string;
   status: 'queued' | 'sent' | 'delivered' | 'failed';

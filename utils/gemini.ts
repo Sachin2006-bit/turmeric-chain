@@ -6,7 +6,7 @@ const GEMINI_API_KEY = 'AIzaSyDxJqODbQSJ3tq6uDPcivZUmAraXGSUthg';
 // Initialize with default settings (no API version specified)
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-interface TurmericAnalysis {
+export interface TurmericAnalysis {
   isTurmeric: boolean;
   quality: 'A' | 'B' | 'C' | 'D';
   color: 'Golden' | 'Yellow' | 'Light Yellow' | 'Pale';
@@ -112,7 +112,7 @@ export class GeminiTurmericAnalyzer {
         } catch (error) {
           const key = `${config.version}/${config.model}`;
           console.error(`Error with ${key}:`, error);
-          results[key] = { success: false, error: error.message };
+          results[key] = { success: false, error: error instanceof Error ? error.message : String(error) };
         }
       }
       
@@ -120,7 +120,7 @@ export class GeminiTurmericAnalyzer {
       return { success: true, results };
     } catch (error) {
       console.error('Direct API test failed:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
   }
 
@@ -148,14 +148,14 @@ export class GeminiTurmericAnalyzer {
           }
         } catch (error) {
           console.error(`Error testing ${version} API:`, error);
-          results[version] = { error: error.message };
+          results[version] = { error: error instanceof Error ? error.message : String(error) };
         }
       }
       
       return results;
     } catch (error) {
       console.error('Error testing available models:', error);
-      return { error: error.message };
+      return { error: error instanceof Error ? error.message : String(error) };
     }
   }
 

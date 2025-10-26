@@ -1,4 +1,4 @@
-import { Farmer, Buyer, Batch, PriceTick, Offer } from '../src/types';
+import { Farmer, Buyer, Batch, PriceTick, Offer } from '../types';
 
 export const mockFarmers: Farmer[] = [
   {

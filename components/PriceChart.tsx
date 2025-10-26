@@ -47,6 +47,7 @@ interface HistoricalPriceData {
   price: number;
   volume: number;
   change_pct_24h: number;
+  market?: string;
 }
 
 export function PriceChart({
@@ -298,7 +299,7 @@ export function PriceChart({
         padding: 12,
         displayColors: false,
         titleFont: {
-          weight: 'bold',
+          weight: 700 as const,
           size: 14
         },
         bodyFont: {

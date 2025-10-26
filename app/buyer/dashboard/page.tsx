@@ -12,7 +12,7 @@ import { useAuth } from '../../../lib/auth-context';
 import { translations } from '../../../locales/translations';
 import { mockBatches } from '../../../mock/data';
 import { Batch } from '../../../types';
-import { formatPrice, formatWeight, formatDate, getStatusColor, getGradeColor } from '../../../utils';
+import { formatPrice, formatWeight, formatDate, getStatusColor, getGradeColor, createNotification } from '../../../utils';
 
 export default function BuyerDashboard() {
   const router = useRouter();
@@ -85,17 +85,19 @@ export default function BuyerDashboard() {
   };
 
   const handleAddToCart = (batchId: string) => {
-    addNotification({
-      type: 'success',
-      message: language === 'te' ? 'కార్ట్‌లో జోడించబడింది' : 'Added to cart'
-    });
+    addNotification(createNotification(
+      'success',
+      language === 'te' ? 'విజయం' : 'Success',
+      language === 'te' ? 'కార్ట్‌లో జోడించబడింది' : 'Added to cart'
+    ));
   };
 
   const handleMakeOffer = (batchId: string) => {
-    addNotification({
-      type: 'info',
-      message: language === 'te' ? 'ఆఫర్ పంపబడింది' : 'Offer sent'
-    });
+    addNotification(createNotification(
+      'bid',
+      language === 'te' ? 'ఆఫర్' : 'Offer',
+      language === 'te' ? 'ఆఫర్ పంపబడింది' : 'Offer sent'
+    ));
   };
 
   const recentBatches = filteredBatches.slice(0, 6);
